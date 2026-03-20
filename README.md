@@ -72,6 +72,7 @@ chmod +x setup.sh
 ```bash
 chmod +x doctrack
 sudo mv doctrack /usr/local/bin/
+sudo mv doctrack_bin /usr/local/bin/
 ```
 
 Now you can use it globally:

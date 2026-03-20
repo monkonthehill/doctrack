@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Check argument
+if [ -z "$1" ]; then
+    echo "Usage: doctrack <folder>"
+    exit 1
+fi
+
+TARGET_DIR=$1
+
+# Check if folder exists
+if [ ! -d "$TARGET_DIR" ]; then
+    echo "❌ Folder not found: $TARGET_DIR"
+    exit 1
+fi
+
+# Check if doctrack_bin exists
+if ! command -v doctrack_bin &> /dev/null; then
+    echo "❌ doctrack_bin not found. Please install it first."
+    exit 1
+fi
+
+echo "🚀 Running DocTrack on $TARGET_DIR"
+
+# Run C++ binary
+doctrack_bin "$TARGET_DIR"
+
+# Convert to HTML only if doc.md exists
+if [ -f "docs/doc.md" ]; then
+    if command -v pandoc &> /dev/null; then
+        pandoc doc.md -s -o report.html
+        echo "🌐 HTML report generated: report.html"
+    else
+        echo "⚠️ Pandoc not installed, skipping HTML conversion"
+    fi
+else
+    echo "⚠️ doc.md not found. Skipping HTML generation"
+fi
+
+echo "✅ Done"

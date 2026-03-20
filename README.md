@@ -44,7 +44,7 @@ It scans your codebase for comments like:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/DocTrack.git
+git clone https://github.com/monkonthehill/DocTrack.git
 cd DocTrack
 ```
 

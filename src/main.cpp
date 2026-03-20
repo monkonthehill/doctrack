@@ -118,20 +118,28 @@ void process_directories(const fs::path &search_dir, fstream &wrt) {
 
 // ---------------- MAIN ----------------
 int main(int argc, char *argv[]) {
-  fs::path target_dir = "."; // default
+  fs::path target_dir = ".";
 
-  // If user provides folder → use it
   if (argc > 1) {
     target_dir = argv[1];
   }
 
-  // Validate directory
   if (!fs::exists(target_dir) || !fs::is_directory(target_dir)) {
     cerr << "❌ Invalid directory: " << target_dir << "\n";
     return 1;
   }
 
-  fstream wrt("doc.md", ios::out);
+  // ✅ Ensure docs folder exists
+  fs::path docs_dir = "docs";
+  if (!fs::exists(docs_dir)) {
+    fs::create_directory(docs_dir);
+  }
+
+  // ✅ Output paths
+  fs::path md_path = docs_dir / "doc.md";
+  fs::path html_path = docs_dir / "report.html";
+
+  fstream wrt(md_path, ios::out);
   if (!wrt) {
     cerr << "Error: Could not create output file\n";
     return 1;
@@ -143,9 +151,14 @@ int main(int argc, char *argv[]) {
 
   wrt.close();
 
-  system("pandoc doc.md -s -o report.html");
+  // ✅ Generate HTML inside docs/
+  string command =
+      "pandoc " + md_path.string() + " -s -o " + html_path.string();
+  system(command.c_str());
 
-  cout << "✅ Scan complete. Output: doc.md + report.html\n";
+  cout << "✅ Scan complete.\n";
+  cout << "📄 Markdown: " << md_path << "\n";
+  cout << "🌐 HTML: " << html_path << "\n";
 
   return 0;
 }

@@ -178,12 +178,6 @@ Pull requests are welcome. For major changes, open an issue first.
 
 ---
 
-## 📜 License
-
-MIT License
-
----
-
 ## 👨‍💻 Author
 
 Built by Nitish

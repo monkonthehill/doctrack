@@ -181,4 +181,3 @@ Pull requests are welcome. For major changes, open an issue first.
 ## 👨‍💻 Author
 
 Built by Nitish
-```

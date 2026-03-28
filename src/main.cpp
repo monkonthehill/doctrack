@@ -106,7 +106,7 @@ void process_directories(const fs::path &search_dir, fstream &wrt) {
       if (entry.is_regular_file()) {
         string ext = entry.path().extension().string();
 
-        if (ext == ".cpp" || ext == ".h" || ext == ".js" || ext == ".py") {
+        if (ext == ".c" || ext == ".cpp" || ext == ".h" || ext == ".js" || ext == ".py") {
           if (entry.path().filename() != "doc.md") {
             read_write_file(entry.path(), wrt);
           }
